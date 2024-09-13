@@ -4,6 +4,11 @@ import sys
 import time 
 import os
 
+# ANSI escape codes for colors
+RED = '\033[91m'
+RESET = '\033[0m'
+
+
 def frame_reducer(x, prob):
     c = (random.randint(1,100))/100
     if c < prob:
@@ -44,11 +49,21 @@ def print_animation(length, reduce_start, reduce_prob):
             frame_row.reduce_frame(reduce_start, reduce_prob)
             rows.append(frame_row)
 
-        # Prepare for bottom-to-top printing
-        cols = ["".join(row.frame[i] for row in rows) for i in range(len(rows[0].frame))]
-        # Print the frame from bottom to top
-        print("\n".join(reversed(cols)))
+        cols = []
+        for j in range(len(rows[0].frame)):  
+            col_str = ""
+            for row in rows:
+                col_str += row.frame[j]
+            cols.append(col_str)
 
+        # manipulate elements 
+        for k in range(len(cols)):
+            cols[k] = cols[k].replace('x', f'{RED}x{RESET}')
+                
+        # Print the frame from bottom to top
+        for col in reversed(cols):
+            print(col)
+            
         time.sleep(0.1)
         os.system("clear")
         
