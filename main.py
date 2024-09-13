@@ -17,28 +17,36 @@ class FrameRow:
     def update(self, particle):
         self.frame = [particle] + self.frame[:-1]
 
-    def __repr__(self):
-        return "|" + "".join(self.frame) + "|"
+    # def __repr__(self):
+    #     # return "-" + "".join(self.frame) + "-"
+    #     return str(self.frame)
     
     def reduce_frame(self, start, prob):
         for i in range(start, len(self.frame)):
             self.frame[i] = frame_reducer(self.frame[i], prob)
     
-frame = [" "]*50
 
-n = 20
-canvas = [FrameRow(50) for _ in range(n)]
+height = 40
+width = 100
+canvas = [FrameRow(height) for _ in range(width)]
 
 frame_list = canvas.copy()
 
 particle = "x"
 
-frame[0] = particle
+
 for i in range(500):
+    # Update and reduce each frame row
+    rows = []
     for frame_row in frame_list:
         frame_row.update("x")
-        frame_row.reduce_frame(0, 0.1)
-        print(f"{frame_row} + {i}")
+        frame_row.reduce_frame(10, 0.1)
+        rows.append(frame_row)
+
+    # Prepare for bottom-to-top printing
+    cols = ["".join(row.frame[i] for row in rows) for i in range(len(rows[0].frame))]
+    # Print the frame from bottom to top
+    print("\n".join(reversed(cols)))
+
     time.sleep(0.1)
     os.system("clear")
-
