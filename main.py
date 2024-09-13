@@ -35,18 +35,21 @@ frame_list = canvas.copy()
 particle = "x"
 
 
-for i in range(500):
-    # Update and reduce each frame row
-    rows = []
-    for frame_row in frame_list:
-        frame_row.update("x")
-        frame_row.reduce_frame(10, 0.1)
-        rows.append(frame_row)
+def print_animation(length, reduce_start, reduce_prob):
+    for i in range(length):
+        # Update and reduce each frame row
+        rows = []
+        for frame_row in frame_list:
+            frame_row.update("x")
+            frame_row.reduce_frame(reduce_start, reduce_prob)
+            rows.append(frame_row)
 
-    # Prepare for bottom-to-top printing
-    cols = ["".join(row.frame[i] for row in rows) for i in range(len(rows[0].frame))]
-    # Print the frame from bottom to top
-    print("\n".join(reversed(cols)))
+        # Prepare for bottom-to-top printing
+        cols = ["".join(row.frame[i] for row in rows) for i in range(len(rows[0].frame))]
+        # Print the frame from bottom to top
+        print("\n".join(reversed(cols)))
 
-    time.sleep(0.1)
-    os.system("clear")
+        time.sleep(0.1)
+        os.system("clear")
+        
+print_animation(500, 10, 0.1)
