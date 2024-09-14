@@ -9,20 +9,33 @@ w = 100
 
 RED = "\033[91m"
 BLUE = "\033[94m"
-ORANGE = "\033[38;5;214m"  # ANSI escape code for orange (approximated)
+# ORANGE = "\033[31m"  # ANSI escape code for orange (approximated)
 YELLOW = "\033[93m"
 CLEAR = "\033[49m"
+WHITE = "\33[0;97m"
+GRAY = "\033[90m"  # ANSI escape code for gray
 RESET = "\033[0m"
 
-colours = {0: CLEAR, 1: RED, 2: ORANGE, 3: YELLOW}
-characters = {0: " ", 1: "x", 2: "o", 3: "@"}
+
+colours = {0: CLEAR, 1: GRAY, 2: RED, 4: YELLOW, 5: WHITE}
+characters = {0: " ", 1: "+", 2: "x", 3: "o", 4: "%", 5: "@"}
+
+
+encoding = "0110002245"
+print(encoding)
+
+
+def get_coloured_char(i):
+    c = int(encoding[i])
+    return f"{colours[c]}{characters[c]}"
 
 
 # Parameters
+max_colour = len(encoding) - 1
 mean = 0.5
 length = w  # Example length of the array
 std_dev = 0.5  # Example standard deviation
-scale_factor = 0.3
+scale_factor = 0.7
 # Generate the array
 
 import numpy as np
@@ -43,22 +56,25 @@ def generate_normal_array(mean, length, std_dev):
 
 x_values, y_values = generate_normal_array(mean, length, std_dev)
 
-print(y_values)
-
 
 class Frame:
     def __init__(self, height, width):
         self.frame = np.zeros((height, width), dtype=int)
+        self.iters = np.zeros((height, width), dtype=int)
 
     def update_frame(self):
         self.frame = np.roll(self.frame, shift=-1, axis=0)
-        self.frame[-1, :] = 3
+        self.frame[-1, :] = max_colour
+
+        self.iters = np.roll(self.frame, shift=-1, axis=0)
+        self.iters[-1, :] = 0
 
     def reduce_frame(self):
         for row_idx, row in enumerate(self.frame):
             for idx, c in enumerate(row):
                 p = random.randint(1, 100) / 100
                 if self.frame[row_idx][idx] == 0:
+                    # If the current cell is empty, do nothing
                     pass
                 elif p < (1 - y_values[idx]) * scale_factor:
                     self.frame[row_idx][idx] -= 1
@@ -66,15 +82,13 @@ class Frame:
     def __str__(self):
         coloured_row_strs = []
         for row in self.frame:
-            coloured_row = [f"{colours[c]}{characters[c]}{RESET}" for c in row]
+            coloured_row = [f"{get_coloured_char(i)}{RESET}" for i in row]
             coloured_row_strs.append("".join(coloured_row))
         return "\n".join(coloured_row_strs)
 
 
 canvas = Frame(h, w)
 
-canvas.frame[-1, :] = 1
-canvas.frame[10, 10] = 2
 
 for i in range(500):
     print(canvas)
