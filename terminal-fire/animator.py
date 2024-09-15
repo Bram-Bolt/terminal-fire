@@ -37,9 +37,4 @@ def animate_sequence(seconds, config=None, fps=10):
         # Wait for the next frame
         time.sleep(1 / fps)
 
-        # Clear the screen using ANSI escape sequences (faster than os.system("clear"))
         os.system("clear")
-
-
-# Example usage (assuming config is passed):
-# animate_sequence(10, config=some_config)
