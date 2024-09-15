@@ -44,8 +44,10 @@ class Frame:
         return f"{colour.value}{c}{ANSI.RESET.value}"
 
     def __str__(self):
-        coloured_row_strs = []
-        for row in self.frame:
-            coloured_row = [f"{self.get_coloured_char(i)}" for i in row]
-            coloured_row_strs.append("".join(coloured_row))
-        return "\n".join(coloured_row_strs)
+        # Vectors are similar to maps, but are used on np.arrays.
+        # Vectorisation changes the elements from their id to a coloured string representation
+        vectorized_coloured_char = np.vectorize(self.get_coloured_char)
+        coloured_frame = vectorized_coloured_char(self.frame)
+
+        # Combine coloured characters lists in to string.
+        return "\n".join("".join(row) for row in coloured_frame)
