@@ -7,33 +7,40 @@ from colour_config import ANSI
 
 class Frame:
     def __init__(self, height, width, config):
-
         self.frame = np.zeros((height, width), dtype=int)
         self.iters = np.zeros((height, width), dtype=int)
 
+        # STEP A WAY FROM HARDCODING!!! SHOULD BE DYNAMIC BASED ON LENGTH
         self.mean = 0.5
         self.std_dev = 0.5
         self.scale_factor = 0.7
-        self.y_values = generate_normal_array(self.mean, width, self.std_dev)
+
+        self.normal_dist_array = generate_normal_array(self.mean, width, self.std_dev)
         self.colour_encoding, self.seq_encoding = config
         self.max_colour = len(self.seq_encoding) - 1
 
-    def update_frame(self):
+    def shift_frame(self):
         self.frame = np.roll(self.frame, shift=-1, axis=0)
         self.frame[-1, :] = self.max_colour
 
         self.iters = np.roll(self.frame, shift=-1, axis=0)
         self.iters[-1, :] = 0
 
-    def reduce_frame(self):
-        for row_idx, row in enumerate(self.frame):
-            for idx, c in enumerate(row):
-                p = random.randint(1, 100) / 100
-                if self.frame[row_idx][idx] == 0:
-                    # If the current cell is empty, do nothing
-                    pass
-                elif p < (1 - self.y_values[idx]) * self.scale_factor:
-                    self.frame[row_idx][idx] -= 1
+    def age_frame(self):
+        # Generate random probabilities
+        random_probs = np.random.rand(*self.frame.shape)
+
+        # Compute the thresholds
+        frame_thresholds = (1 - self.normal_dist_array) * self.scale_factor
+
+        # Check which values should be aged
+        aged_mask = random_probs < frame_thresholds
+
+        # Create a mask for non-zero values in the frame
+        non_zero_mask = self.frame != 0
+
+        # Apply -1 age on items where both masks hold
+        self.frame = np.where(non_zero_mask & aged_mask, self.frame - 1, self.frame)
 
     def get_coloured_char(self, i):
         c_id = int(self.seq_encoding[i])

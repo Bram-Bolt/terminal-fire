@@ -8,7 +8,7 @@ def animate_sequence(seconds, height, width, config):
     n_frames = seconds * 10
     for i in range(n_frames):
         print(canvas)
-        canvas.update_frame()
-        canvas.reduce_frame()
+        canvas.shift_frame()
+        canvas.age_frame()
         time.sleep(0.1)
         os.system("clear")
