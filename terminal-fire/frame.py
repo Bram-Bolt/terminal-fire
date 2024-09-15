@@ -8,9 +8,8 @@ from colour_config import ANSI
 class Frame:
     def __init__(self, height, width, config):
         self.frame = np.zeros((height, width), dtype=int)
-        self.iters = np.zeros((height, width), dtype=int)
 
-        # STEP A WAY FROM HARDCODING!!! SHOULD BE DYNAMIC BASED ON LENGTH
+        # TODO STEP A WAY FROM HARDCODING!!! SHOULD BE DYNAMIC BASED ON LENGTH
         self.mean = 0.5
         self.std_dev = 0.5
         self.scale_factor = 0.7
@@ -22,9 +21,6 @@ class Frame:
     def shift_frame(self):
         self.frame = np.roll(self.frame, shift=-1, axis=0)
         self.frame[-1, :] = self.max_colour
-
-        self.iters = np.roll(self.frame, shift=-1, axis=0)
-        self.iters[-1, :] = 0
 
     def age_frame(self):
         # Generate random probabilities
