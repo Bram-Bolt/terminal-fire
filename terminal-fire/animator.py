@@ -1,22 +1,45 @@
 from frame import Frame
 import os
 import time
+import shutil  # For getting terminal size dynamically
 
 
-def animate_sequence(seconds, height, width, config):
-    """Updates frames for a certain amount of seconds"""
+def get_terminal_size():
+    """Returns the current terminal width and height."""
+    size = shutil.get_terminal_size()
+    return size.lines, size.columns  # height, width
+
+
+def animate_sequence(seconds, config=None, fps=10):
+    """Animates the sequence for a specified amount of seconds, dynamically adjusting to terminal size."""
+    if height is None or width is None:
+        height, width = get_terminal_size()
+
     canvas = Frame(height, width, config)
-    # convert frames to seconds
-    n_frames = seconds * 10
+    n_frames = int(seconds * fps)
+
     for i in range(n_frames):
-        # TODO: make dynamic?
-        # new_w, new_h = os.get_terminal_size()
-        # if (height, width) != (new_h, new_w):
-        #     canvas = Frame(height, width, config)
-        #     height, width = new_h, new_w
+        # Dynamically adjust the frame to terminal size if changed
+        new_height, new_width = get_terminal_size()
+        if (height, width) != (new_height, new_width):
+            canvas = Frame(
+                new_height, new_width, config
+            )  # Reinitialize canvas if size changes
+            height, width = new_height, new_width
+
+        # Render the frame
         print(canvas)
-        # print(f"frame: {i}")  # debug
+
+        # Advance the animation
         canvas.shift_frame()
         canvas.age_frame()
-        time.sleep(0.1)
+
+        # Wait for the next frame
+        time.sleep(1 / fps)
+
+        # Clear the screen using ANSI escape sequences (faster than os.system("clear"))
         os.system("clear")
+
+
+# Example usage (assuming config is passed):
+# animate_sequence(10, config=some_config)
