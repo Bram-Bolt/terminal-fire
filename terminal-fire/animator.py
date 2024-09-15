@@ -11,7 +11,7 @@ def get_terminal_size():
 
 
 def animate_sequence(seconds, config=None, fps=10):
-    """Animates the sequence for a specified amount of seconds, dynamically adjusting to terminal size."""
+    """Animates the sequence for a specified amount of seconds and fps"""
     if height is None or width is None:
         height, width = get_terminal_size()
 
