@@ -1,6 +1,7 @@
 from enum import Enum
 
 
+# ENUM for colours and their escape codes
 class ANSI(Enum):
     RED = "\033[91m"
     BLUE = "\033[94m"
@@ -15,9 +16,10 @@ colour_encoding = {
     0: (ANSI.CLEAR, " "),
     1: (ANSI.GRAY, "+"),
     2: (ANSI.RED, "x"),
+    3: (ANSI.RED, "x"),
     4: (ANSI.YELLOW, "%"),
     5: (ANSI.WHITE, "@"),
 }
 
-
+# Encoding in which order characters will apear
 seq_encoding = "0110002245"
