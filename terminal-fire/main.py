@@ -4,4 +4,4 @@ import os
 
 
 config = (colour_encoding, seq_encoding)
-animate_sequence(10, config=config)
+animate_sequence(60, config=config, fps=10)
