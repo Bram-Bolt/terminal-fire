@@ -15,7 +15,7 @@ setup(
     ],
     entry_points={
         "console_scripts": [
-            "terminal-fire=terminal_fire.main:main",
+            "terminal-fire=app.main:main",
         ],
     },
 )
