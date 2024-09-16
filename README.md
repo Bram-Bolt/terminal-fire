@@ -38,3 +38,6 @@ Contributions are welcome! Please submit a pull request or open an issue to disc
 ### Contact
 Questions? Feel free to reach out to [contact@brambolt.me](mailto:contact@brambolt.me).
 
+## License
+Distributed under the MIT License. See LICENSE.txt for more information.
+
