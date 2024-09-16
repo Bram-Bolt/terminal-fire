@@ -1,6 +1,5 @@
 
 
-# Terminal-Fire </🔥>
 
 <p align = center><img src="https://i.imgur.com/MlpZHJx.pngg" alt="drawing" width="350"/></p>
 
