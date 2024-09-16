@@ -1,8 +1,7 @@
 # type ignore for vscode bugs
 import numpy as np  # type: ignore
-from function_generator import generate_normal_array
-import random
-from colour_config import ANSI
+from .function_generator import generate_normal_array
+from .colour_config import ANSI
 
 
 # TODO need better name for "age", since it goes down. "lives" sounds a bit weird?

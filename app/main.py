@@ -1,5 +1,5 @@
-from animator import animate_sequence
-from colour_config import colour_encoding, seq_encoding
+from .animator import animate_sequence
+from .colour_config import colour_encoding, seq_encoding
 import os
 
 

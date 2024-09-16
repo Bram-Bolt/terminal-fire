@@ -1,4 +1,4 @@
-from frame import Frame
+from .frame import Frame
 import os
 import time
 import shutil  # For getting terminal size dynamically
@@ -12,7 +12,7 @@ def get_terminal_size():
 
 def animate_sequence(seconds=-1, config=None, fps=10):
     """Animates the sequence for a specified amount of seconds and fps"""
-    
+
     height, width = get_terminal_size()
 
     canvas = Frame(height, width, config)
