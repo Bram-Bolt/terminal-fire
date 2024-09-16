@@ -5,7 +5,7 @@
 
 ## About The Project
 
-Terminal-Fire is a python app that runs in your CLI and that an ASCII animation of a fireplace. To create this effect, a OOP approach with numpy is used.
+Terminal-Fire is a python app that runs in your CLI and generates an ASCII animation of a fireplace. To create this effect, an OOP approach with numpy is used.
 
 ## Set Up
 
