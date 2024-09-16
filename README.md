@@ -3,7 +3,7 @@
 
 <p align = center><img src="https://i.imgur.com/MlpZHJx.pngg" alt="drawing" width="350"/></p>
 
-## About the project
+## About The Project
 
 Terminal-Fire is a python app that runs in your CLI and that an ASCII animation of a fireplace. To create this effect, a OOP approach with numpy is used.
 
