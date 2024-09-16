@@ -12,15 +12,13 @@ def get_terminal_size():
 
 def animate_sequence(seconds=-1, config=None, fps=10):
     """Animates the sequence for a specified amount of seconds and fps"""
-
+    clear_command = "cls" if os.name == "nt" else "clear"
     height, width = get_terminal_size()
 
     canvas = Frame(height, width, config)
-    if seconds > 0:
-        n_frames = int(seconds * fps)
-    else:
-        # full day
-        n_frames = int((60 * 60 * 24) * fps)
+
+    seconds = (60 * 60 * 24) if seconds < 0 else seconds
+    n_frames = int(seconds * fps)
 
     for i in range(n_frames):
         # Dynamically adjust the frame to terminal size if changed
@@ -41,4 +39,4 @@ def animate_sequence(seconds=-1, config=None, fps=10):
         # Wait for the next frame
         time.sleep(1 / fps)
 
-        os.system("clear")
+        os.system(clear_command)
