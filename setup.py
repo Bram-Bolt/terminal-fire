@@ -1,5 +1,9 @@
 from setuptools import setup, find_packages
 
+# Read the requirements.txt file
+with open("requirements.txt") as f:
+    install_requires = f.read().splitlines()
+
 setup(
     name="terminal-fire",
     version="0.0.3",
@@ -10,12 +14,9 @@ setup(
     author_email="contact@brambolt.me",
     url="https://github.com/bram-bolt/terminal-fire",
     packages=find_packages(),
-    install_requires=[
-        "numpy",
-    ],
+    install_requires=install_requires,  # Automatically read from requirements.txt
     entry_points={
         "console_scripts": [
             "terminal-fire=app.main:main",
         ],
     },
-)
