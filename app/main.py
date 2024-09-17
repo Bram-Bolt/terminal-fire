@@ -4,6 +4,10 @@ from .sound_system import play_fire_sound
 import threading
 import sys
 import argparse
+import logging
+
+# add logging
+logging.basicConfig(level=logging.INFO)
 
 
 # CLI parsing
@@ -43,7 +47,7 @@ def main() -> None:
     try:
         animate_sequence(seconds=60, config=config, fps=10)
     except KeyboardInterrupt:
-        print("EXIT")  # TODO: make this a logging function
+        logging.info("Fire animation terminated succesfully.")
         sys.exit()
 
 
