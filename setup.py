@@ -6,7 +6,7 @@ with open("requirements.txt") as f:
 
 setup(
     name="terminal-fire",
-    version="0.0.3",
+    version="1.0.0",
     description="A terminal-based fire animation using numpy",
     long_description=open("README.md").read(),
     long_description_content_type="text/markdown",
@@ -20,3 +20,4 @@ setup(
             "terminal-fire=app.main:main",
         ],
     },
+)
