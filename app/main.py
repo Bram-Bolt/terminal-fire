@@ -45,7 +45,7 @@ def main() -> None:
         sound_thread.start()
 
     try:
-        animate_sequence(seconds=60, config=config, fps=10)
+        animate_sequence(seconds=-1, config=config, fps=10)
     except KeyboardInterrupt:
         logging.info("Fire animation terminated succesfully.")
         sys.exit()

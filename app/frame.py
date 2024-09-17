@@ -6,6 +6,8 @@ from .colour_config import ANSI
 
 # TODO need better name for "age", since it goes down. "lives" sounds a bit weird?
 class Frame:
+    """2d np array with particle age"""
+
     def __init__(self, height, width, config):
         self.frame = np.zeros((height, width), dtype=int)
 

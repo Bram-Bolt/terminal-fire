@@ -10,6 +10,7 @@ def get_terminal_size():
     return size.lines, size.columns  # height, width
 
 
+# TODO: make better start-up animation!
 def animate_sequence(seconds=-1, config=None, fps=10):
     """Animates the sequence for a specified amount of seconds and fps"""
     clear_command = "cls" if os.name == "nt" else "clear"
