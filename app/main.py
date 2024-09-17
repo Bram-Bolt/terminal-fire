@@ -3,18 +3,49 @@ from .colour_config import colour_encoding, seq_encoding
 from .sound_system import play_fire_sound
 import threading
 import sys
+import argparse
+
+
+# CLI parsing
+def parse_arguments() -> argparse.Namespace:
+    """parse CLI arguments"""
+    parser = argparse.ArgumentParser(
+        prog="terminal-fire",
+        description="Generate an ASCII fireplace in your terminal/CLI.",
+        epilog="For any questions, reach out to contact@brambolt.me",
+    )
+
+    parser.add_argument(
+        "-s",
+        "--sound",
+        dest="enable_sound",
+        action="store_true",
+        help="Play the fireplace with sound!",
+        default=False,
+    )
+
+    return parser.parse_args()
+
+
+args = parse_arguments()
 
 # config encoding
 config = (colour_encoding, seq_encoding)
 
-# Threading for sound
-with_sound = True
-if with_sound == True:
-    sound_thread = threading.Thread(target=play_fire_sound, daemon=True)
-    sound_thread.start()
 
-try:
-    animate_sequence(seconds=60, config=config, fps=10)
-except KeyboardInterrupt:
-    print("EXIT")  # TODO: make this a logging function
-    sys.exit()
+# Threading for sound
+def main() -> None:
+    """Generate an ASCII fireplace in your terminal/CLI"""
+    if args.enable_sound == True:
+        sound_thread = threading.Thread(target=play_fire_sound, daemon=True)
+        sound_thread.start()
+
+    try:
+        animate_sequence(seconds=60, config=config, fps=10)
+    except KeyboardInterrupt:
+        print("EXIT")  # TODO: make this a logging function
+        sys.exit()
+
+
+if __name__ == "__main__":
+    main()
