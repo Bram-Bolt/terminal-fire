@@ -47,7 +47,7 @@ For quick testing of the package , run it is as a module using `-m`.
 ```bash
 git clone https://github.com/bram-bolt/terminal-fire.git
 cd terminal-fire
-python -m app.main
+python -m terminal_fire.app.main
 ```
 
 ### Road Map
