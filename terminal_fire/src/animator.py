@@ -23,11 +23,13 @@ def move_cursor_to_top():
 def animate_sequence(clear_method=0, seconds=-1, config=None, fps=10):
     if clear_method == 0:
         animate_sequence_clear(seconds=seconds, config=config, fps=fps)
+
     elif clear_method == 1:
         animate_sequence_buffer(seconds=seconds, config=config, fps=fps)
+
     elif clear_method == 2:
         animate_sequence_top(seconds=seconds, config=config, fps=fps)
-    else:
+    elif clear_method == 3:
         animate_sequence_top_buffer(seconds=seconds, config=config, fps=fps)
 
 

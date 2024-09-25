@@ -28,6 +28,15 @@ def parse_arguments() -> argparse.Namespace:
         default=False,
     )
 
+    parser.add_argument(
+        "-c",
+        "--clear",
+        dest="clear_method",
+        type=str,
+        default="0",
+        help="Clear method (default: 0)",
+    )
+
     return parser.parse_args()
 
 
@@ -45,7 +54,9 @@ def main() -> None:
         sound_thread.start()
 
     try:
-        animate_sequence(seconds=-1, config=config, fps=10)
+        animate_sequence(
+            clear_method=int(args.clear_method), seconds=-1, config=config, fps=10
+        )
     except KeyboardInterrupt:
         logging.info("Fire animation terminated succesfully.")
         sys.exit()
