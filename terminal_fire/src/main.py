@@ -28,6 +28,15 @@ def parse_arguments() -> argparse.Namespace:
         default=False,
     )
 
+    parser.add_argument(
+        "-f",
+        "--fps",
+        dest="fps",
+        type=int,
+        default=10,
+        help="FPS (default: 10)",
+    )
+
     return parser.parse_args()
 
 
@@ -45,7 +54,7 @@ def main() -> None:
         sound_thread.start()
 
     try:
-        animate_sequence(seconds=-1, config=config, fps=10)
+        animate_sequence(seconds=-1, config=config, fps=args.fps)
     except KeyboardInterrupt:
         logging.info("Fire animation terminated succesfully.")
         sys.exit()

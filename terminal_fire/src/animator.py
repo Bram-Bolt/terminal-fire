@@ -1,7 +1,11 @@
+#### OLD
 from .frame import Frame
-import os
 import time
+import sys
 import shutil  # For getting terminal size dynamically
+
+
+# TODO: make better start-up animation!
 
 
 def get_terminal_size():
@@ -10,12 +14,15 @@ def get_terminal_size():
     return size.lines, size.columns  # height, width
 
 
-# TODO: make better start-up animation!
+def move_cursor_to_top():
+    """Move the cursor to the top of the terminal."""
+    print("\033[H", end="")  # ANSI escape code to move the cursor to the top
+
+
+## with to top + buffering
 def animate_sequence(seconds=-1, config=None, fps=10):
     """Animates the sequence for a specified amount of seconds and fps"""
-    clear_command = "cls" if os.name == "nt" else "clear"
     height, width = get_terminal_size()
-
     canvas = Frame(height, width, config)
 
     seconds = (60 * 60 * 24) if seconds < 0 else seconds
@@ -30,8 +37,13 @@ def animate_sequence(seconds=-1, config=None, fps=10):
             )  # Reinitialize canvas if size changes
             height, width = new_height, new_width
 
-        # Render the frame
-        print(canvas)
+        # Move cursor to top instead of clearing the screen
+        move_cursor_to_top()
+
+        # Use buffering: write everything to memory before flushing to terminal
+        buffer = str(canvas)  # Generate the entire frame
+        sys.stdout.write(buffer)  # Write the entire frame to stdout at once
+        sys.stdout.flush()  # Ensure the buffer is flushed to the terminal at once
 
         # Advance the animation
         canvas.shift_frame()
@@ -39,5 +51,3 @@ def animate_sequence(seconds=-1, config=None, fps=10):
 
         # Wait for the next frame
         time.sleep(1 / fps)
-
-        os.system(clear_command)
