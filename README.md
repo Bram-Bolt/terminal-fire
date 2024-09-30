@@ -38,6 +38,17 @@ terminal-fire --sound
 ```bash 
 terminal-fire -s
 ```
+#### Set FPS
+You can set the FPS by:
+```bash 
+terminal-fire --fps [fps]
+```
+... or
+```bash 
+terminal-fire -f [fps]
+```
+the default is 10.
+
 ## Contributing
 Contributions are welcome! Please submit a pull request or open an issue to discuss potential changes or improvements.
 
